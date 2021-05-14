@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300;500&display=swap" rel="stylesheet">
+    <title>Imageboard</title>
+</head>
+<body>
+    <main id="main">
+        <h1 class="top-heading">Imageboard - Upload your pictures</h1>
+        <section class="upload">
+            <form method="post" enctype="multipart/form-data" v-on:submit.prevent="onSubmit">
+                <input type="text" name="title" id="" required placeholder="Image title..." v-model="title">
+                <input type="text" name="description" id="" required placeholder="Image description..." v-model="description">
+                <input type="text" name="username" id="" required placeholder="Your username..." v-model="username">
+                <input type="file" name="file" id="" accept="images/*" ref="image" v-on:change="onFileSelect" class="custom-file-input">
+                <button type="submit" class="submit">Upload</button>
+            </form>
+        </section>
+        <section class="images">
+            <h2>Latest Images</h2>
+            <ul v-if="images.length > 0" class="images-list">
+                <li v-for="image in images">
+                    <a class="image" v-bind:href="'#' + image.id">
+                        <img  v-bind:src="image.url" alt="">
+                        <span class="details">{{image.description}}</span>
+                    </a>
+                </li>
+            </ul>
+            <p class="more" v-if="images.length > 0 && !noMoreImages">
+                <button class="action" v-on:click="onMoreButtonClick">More Images!</button>
+            </p>
+        </section>
+        <modal v-if="currentImageID" v-bind:image-id="currentImageID"  @close="onClose" @erase="imagedelete"></modal>
+    </main>    
+    <script id="modal" type="text/x-template">
+        <div class="modal" v-bind:class="{visible}">
+           <div class="modal-content">
+               <button v-on:click="close" class="close">X</button>
+               <div class="image">
+                   <a v-bind:href="'#'+ image.prev" v-if="prevButtonVisible" class="backFoward">previous</a>
+                    <img :src="image.url" alt="">
+                    <a v-bind:href="'#'+ image.next" v-if="nextButtonVisible" class="backFoward">next</a>
+                    <h2>{{image.title}}</h2>
+                    <p class="description">Description: {{image.description}}</p>
+                    <p class="info">
+                        Image Uploaded by: <strong> {{image.username}}</strong> on 
+                        {{image.created_at | formDate}}
+                    </p>
+                    <button v-on:click="deleteImage" id="deleteImage">Delete this image</button>
+               </div>
+                <comments v-bind:image-id="imageId"></comments>
+           </div>
+        </div>
+    </script>
+    <script type="text/x-template" id="comments">
+        <section class="comments">
+                <ul class="comments-list" v-if="comments.length >0">
+                    <li v-for="comment in comments">
+                        <p class="text">{{comment.text}}</p>
+                        <p class="info">
+                            <strong>{{comment.username}}</strong> on {{comment.created_at | formDate}}
+                        </p>
+                    </li>
+                </ul>
+                <p v-if="!comments.length" class="no-comments">No comments yet, be the first!</p>
+                <form method="post" v-on:submit.prevent="onSubmit" class="comments-form">
+                    <input type="text" placeholder="Your name..." required v-model="username">
+                    <textarea id="" cols="25" rows="10" placeholder="Comment here..." required v-model="text"></textarea>
+                    <button type="submit" class="submit">Send Message</button>
+                </form>
+        </section>
+    </script>     
+</body>
+<script src="/js/vue.js"></script>
+<script src="/js/axios.min.js"></script>
+<script src="./js/script.js"></script>
+</html>
