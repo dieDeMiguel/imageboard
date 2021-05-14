@@ -1,10 +1,10 @@
 var spicedPg = require("spiced-pg");
 
-const {
-    DATABASE_USERNAME,
-    DATABSE_PASSWORD,
-    DATABASE_NAME,
-} = require("./secrets.json");
+// const {
+//     DATABASE_USERNAME,
+//     DATABSE_PASSWORD,
+//     DATABASE_NAME,
+// } = require("./secrets.json");
 
 function getDatabaseURL() {
     if (process.env.DATABASE_URL) {
