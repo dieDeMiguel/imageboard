@@ -14,7 +14,7 @@ const { Bucket } = process.env.Bucket;
 // require the secrets the way you want
 const s3 = new S3({
     accessKeyId: process.env.AWS_KEY,
-    secretAccessKey: proces.env.AWS_SECRET,
+    secretAccessKey: process.env.AWS_SECRET,
 });
 
 // it's a middleware: in the name of the request, the response and the next
