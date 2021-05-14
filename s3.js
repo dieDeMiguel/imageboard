@@ -4,12 +4,12 @@ const fs = require("fs");
 
 const { Bucket } = process.env.Bucket;
 
-let secrets;
-if (process.env.NODE_ENV) {
-    secrets = process.env;
-} else {
-    secrets = require("./secrets.json");
-}
+// let secrets;
+// if (process.env.NODE_ENV) {
+//     secrets = process.env;
+// } else {
+//     secrets = require("./secrets.json");
+// }
 
 // require the secrets the way you want
 const s3 = new S3({
