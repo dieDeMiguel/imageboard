@@ -15,6 +15,8 @@ app.use(express.urlencoded({ extended: false }));
 const { s3upload, getURLFromFilename } = require("./s3");
 // const { Bucket } = require("./config.json");
 
+const Bucket = process.env.Bucket;
+
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
