@@ -1,6 +1,8 @@
 const { S3 } = require("aws-sdk");
 const fs = require("fs");
-// const { Bucket } = require("./config.json");
+//const { Bucket } = require("./config.json");
+
+const { Bucket } = process.env.Bucket;
 
 let secrets;
 if (process.env.NODE_ENV) {
