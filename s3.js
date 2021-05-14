@@ -13,8 +13,8 @@ if (process.env.NODE_ENV) {
 
 // require the secrets the way you want
 const s3 = new S3({
-    accessKeyId: secrets.AWS_KEY,
-    secretAccessKey: secrets.AWS_SECRET,
+    accessKeyId: process.env.AWS_KEY,
+    secretAccessKey: proces.env.AWS_SECRET,
 });
 
 // it's a middleware: in the name of the request, the response and the next
