@@ -25,10 +25,12 @@
             <h2>Latest Images</h2>
             <ul v-if="images.length > 0" class="images-list">
                 <li v-for="image in images">
-                    <a class="image" v-bind:href="'#' + image.id">
-                        <img  v-bind:src="image.url" alt="">
-                        <span class="details">{{image.description}}</span>
-                    </a>
+                    <div class="image-wrapper">
+                        <a class="image" v-bind:href="'#' + image.id">
+                            <img  class="image-board" v-bind:src="image.url" alt="image.description">
+                        </a>
+                    </div>
+                    <span class="details">{{image.description}}</span> 
                 </li>
             </ul>
             <p class="more" v-if="images.length > 0 && !noMoreImages">
@@ -42,9 +44,13 @@
            <div class="modal-content">
                <button v-on:click="close" class="close">X</button>
                <div class="image">
-                   <a v-bind:href="'#'+ image.prev" v-if="prevButtonVisible" class="backFoward">previous</a>
-                    <img :src="image.url" alt="">
+                   <div class="image-button">
+                       <a v-bind:href="'#'+ image.prev" v-if="prevButtonVisible" class="backFoward">previous</a>
+                        <div class="modal-image">
+                            <img  class="image-modal" v-bind:src="image.url" alt="image.description">
+                        </div>
                     <a v-bind:href="'#'+ image.next" v-if="nextButtonVisible" class="backFoward">next</a>
+                   </div>
                     <h2>{{image.title}}</h2>
                     <p class="description">Description: {{image.description}}</p>
                     <p class="info">
